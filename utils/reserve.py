@@ -872,7 +872,7 @@ class reserve:
         
         positions = self._recognize_textclick_positions(image_url, target_text)
         if not positions:
-            logging.warning("Failed to recognize text positions")
+            logging.debug("Textclick captcha recognition failed before submit")
             return ""
         
         logging.info(f"Successfully recognize positions: {positions}")
@@ -1094,7 +1094,7 @@ class reserve:
             ocr_result = ocr.recognize_textclick(img_bytes)
             
             if not ocr_result:
-                logging.warning("TulingCloud failed to recognize text")
+                logging.debug("TulingCloud failed to recognize text")
                 return None
             
             if isinstance(ocr_result, dict):
@@ -1107,26 +1107,26 @@ class reserve:
                 raw_ocr_result = None
             
             if not recognized_text:
-                logging.warning("TulingCloud returned empty text")
+                logging.debug("TulingCloud returned empty text")
                 return None
             
-            logging.info(f"TulingCloud recognized text: {recognized_text}")
-            logging.info(f"Target text to find: {target_text}")
+            logging.debug(f"TulingCloud recognized text: {recognized_text}")
+            logging.debug(f"Target text to find: {target_text}")
             if raw_ocr_result is not None:
                 logging.debug(f"TulingCloud raw_result: {raw_ocr_result}")
             
             if not coordinates:
-                logging.error(f"TulingCloud did not return coordinates")
+                logging.debug("TulingCloud did not return coordinates")
                 return None
             
             target_chars = self._parse_textclick_target_chars(target_text)
             if not target_chars:
-                logging.warning(
+                logging.debug(
                     f"Could not parse target characters from textclick prompt: {target_text!r}"
                 )
                 return None
             
-            logging.info(f"Parsed target characters: {target_chars}")
+            logging.debug(f"Parsed target characters: {target_chars}")
             
             recognized_chars = [char for char in str(recognized_text) if char.strip()]
             normalized_coordinates = []
@@ -1139,7 +1139,7 @@ class reserve:
                 normalized_coordinates.append(normalized_coord)
 
             coordinates = normalized_coordinates
-            logging.info(f"Normalized OCR coordinates: {coordinates}")
+            logging.debug(f"Normalized OCR coordinates: {coordinates}")
 
             result_positions = []
             used_indices = set()
@@ -1159,26 +1159,30 @@ class reserve:
                             "y": int(coord["y"]),
                         })
                         used_indices.add(idx)
-                        logging.info(
+                        logging.debug(
                             f"Matched target '{target_char}' with OCR item #{idx}: {coord}"
                         )
                         found = True
                         break
                 
                 if not found:
-                    logging.warning(f"Target character '{target_char}' not found in recognized text '{recognized_text}'")
-                    logging.warning(f"Discarding this captcha recognition, will retry with new captcha")
+                    logging.debug(
+                        f"Textclick target mismatch: target '{target_char}' not found "
+                        f"in recognized text '{recognized_text}'"
+                    )
                     return None
             
             if len(result_positions) == len(target_chars):
                 logging.info(f"Final positions for target {target_chars}: {result_positions}")
                 return result_positions
             else:
-                logging.error(f"Could not find all target characters. Found {len(result_positions)}/{len(target_chars)}")
+                logging.debug(
+                    f"Could not find all target characters. Found {len(result_positions)}/{len(target_chars)}"
+                )
                 return None
             
         except Exception as e:
-            logging.error(f"FateADM recognition failed: {e}")
+            logging.debug(f"Textclick OCR position matching failed: {e}")
             import traceback
             logging.debug(traceback.format_exc())
             return None

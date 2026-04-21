@@ -1,339 +1,0 @@
-2026-03-30 14:58:06.118 [Asia/Shanghai] - INFO - start time 2026-03-30 14:58:06.118, action off, target_dt 2026-03-30 14:59:00+08:00
-2026-03-30 14:58:46.000 [Asia/Shanghai] - INFO - [strategic] Start first attempt for 13838213320 -- ['09:30', '22:30'] -- ['659'] -- seatPageId=13475 -- fidEnc=4a18e12602b24c8c
-2026-03-30 14:58:46.454 [Asia/Shanghai] - INFO - User Fx68dy49z7os7B1Gu/D+5w== login successfully
-2026-03-30 14:58:57.500 [Asia/Shanghai] - INFO - [warm] Start connection pre-warm request via https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 14:58:58.101 [Asia/Shanghai] - INFO - [warm] 连接追踪：连接池=https://office.chaoxing.com，池对象=0x106333bc0，发送前连接数=0，请求数=0，发送后连接数=1，请求数=1，状态码=200
-2026-03-30 14:58:59.860 [Asia/Shanghai] - INFO - [strategic] [A] Pre-fetch page token at 2026-03-30 14:58:59.860011+08:00 (target_dt - 140ms) from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 14:59:00.011 [Asia/Shanghai] - INFO - [strategic] Got page token for first submit from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 868052a73d24461a91d1fee9074adfb2_297408784, value: 868052a73d24461a91d1fee9074adfb2_297408784
-2026-03-30 14:59:00.017 [Asia/Shanghai] - INFO - [strategic] [A] First submit at 2026-03-30 14:59:00.017006+08:00 (target_dt + 17ms)
-2026-03-30 14:59:00.017 [Asia/Shanghai] - INFO - submit parameter (before enc) {'roomId': '13475', 'startTime': '09:30', 'endTime': '22:30', 'day': '2026-03-31', 'seatNum': '659', 'captcha': '', 'wyToken': ''} 
-2026-03-30 14:59:00.018 [Asia/Shanghai] - INFO - submit enc: 47e51581f3aa0172a23f9f5980c81ef3
-2026-03-30 14:59:00.128 [Asia/Shanghai] - INFO - {'msg': '当前区域未到开放预约时间，请咨询管理员确认该区域开放时间', 'success': False}
-2026-03-30 14:59:00.128 [Asia/Shanghai] - INFO - [strategic] First submit failed, prepare second submit with NEW page token
-2026-03-30 14:59:00.532 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:00.533 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853940532.html
-2026-03-30 14:59:00.533 [Asia/Shanghai] - ERROR - [strategic] Failed to get page token for second submit, skip to third/normal flow
-2026-03-30 14:59:00.533 [Asia/Shanghai] - INFO - [strategic] Second submit failed, prepare third submit with NEW page token
-2026-03-30 14:59:00.904 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:00.904 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853940904.html
-2026-03-30 14:59:00.905 [Asia/Shanghai] - ERROR - [strategic] Failed to get page token for third submit, give up strategic submits for this config
-2026-03-30 14:59:00.905 [Asia/Shanghai] - INFO - [seat-ordered-after-strategic] Config 0: try seat 660 (base 659, offset +1, attempt 1/10)
-2026-03-30 14:59:00.905 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 14:59:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 14:59:00.905 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['660'] try -----------
-2026-03-30 14:59:01.280 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:01.281 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853941281.html
-2026-03-30 14:59:01.281 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 14:59:01.281 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 14:59:01.282 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 658 (base 659, offset -1, attempt 2/10)
-2026-03-30 14:59:01.282 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 14:59:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 14:59:01.282 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['658'] try -----------
-2026-03-30 14:59:01.656 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:01.656 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853941656.html
-2026-03-30 14:59:01.656 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 14:59:01.656 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 14:59:01.656 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 661 (base 659, offset +2, attempt 3/10)
-2026-03-30 14:59:01.656 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 14:59:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 14:59:01.656 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['661'] try -----------
-2026-03-30 14:59:01.978 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:01.981 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853941981.html
-2026-03-30 14:59:01.982 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 14:59:01.982 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 14:59:01.982 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 657 (base 659, offset -2, attempt 4/10)
-2026-03-30 14:59:01.982 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 14:59:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 14:59:01.983 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['657'] try -----------
-2026-03-30 14:59:02.325 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:02.327 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853942326.html
-2026-03-30 14:59:02.327 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 14:59:02.327 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 14:59:02.327 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 662 (base 659, offset +3, attempt 5/10)
-2026-03-30 14:59:02.327 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 14:59:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 14:59:02.327 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['662'] try -----------
-2026-03-30 14:59:02.701 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:02.701 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853942701.html
-2026-03-30 14:59:02.701 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 14:59:02.701 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 14:59:02.702 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 656 (base 659, offset -3, attempt 6/10)
-2026-03-30 14:59:02.702 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 14:59:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 14:59:02.702 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['656'] try -----------
-2026-03-30 14:59:03.016 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:03.016 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853943016.html
-2026-03-30 14:59:03.016 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 14:59:03.016 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 14:59:03.016 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 663 (base 659, offset +4, attempt 7/10)
-2026-03-30 14:59:03.017 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 14:59:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 14:59:03.017 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['663'] try -----------
-2026-03-30 14:59:03.369 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:03.371 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853943369.html
-2026-03-30 14:59:03.371 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 14:59:03.371 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 14:59:03.371 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 655 (base 659, offset -4, attempt 8/10)
-2026-03-30 14:59:03.371 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 14:59:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 14:59:03.371 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['655'] try -----------
-2026-03-30 14:59:03.766 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:03.768 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853943767.html
-2026-03-30 14:59:03.768 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 14:59:03.768 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 14:59:03.768 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 664 (base 659, offset +5, attempt 9/10)
-2026-03-30 14:59:03.769 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 14:59:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 14:59:03.769 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['664'] try -----------
-2026-03-30 14:59:04.091 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 14:59:04.092 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774853944091.html
-2026-03-30 14:59:04.093 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 14:59:04.093 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 14:59:04.093 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 654 (base 659, offset -5, attempt 10/10)
-2026-03-30 14:59:04.093 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 14:59:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 14:59:04.093 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['654'] try -----------
-2026-03-30 15:42:59.130 [Asia/Shanghai] - INFO - start time 2026-03-30 15:42:59.130, action off, target_dt 2026-03-30 15:43:00+08:00
-2026-03-30 15:42:59.130 [Asia/Shanghai] - INFO - [strategic] Start first attempt for 13838213320 -- ['09:30', '22:30'] -- ['659'] -- seatPageId=13475 -- fidEnc=4a18e12602b24c8c
-2026-03-30 15:42:59.438 [Asia/Shanghai] - INFO - User Fx68dy49z7os7B1Gu/D+5w== login successfully
-2026-03-30 15:42:59.438 [Asia/Shanghai] - INFO - [warm] Start connection pre-warm request via https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 15:42:59.860 [Asia/Shanghai] - INFO - [warm] 连接追踪：连接池=https://office.chaoxing.com，池对象=0x1047b0a40，发送前连接数=0，请求数=0，发送后连接数=1，请求数=1，状态码=200
-2026-03-30 15:42:59.862 [Asia/Shanghai] - INFO - [strategic] [A] Pre-fetch page token at 2026-03-30 15:42:59.862855+08:00 (target_dt - 160ms) from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 15:42:59.995 [Asia/Shanghai] - INFO - [strategic] Got page token for first submit from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 4c163ae8174e48e5939aade1b21c7f05_297408784, value: 4c163ae8174e48e5939aade1b21c7f05_297408784
-2026-03-30 15:43:00.017 [Asia/Shanghai] - INFO - [strategic] [A] First submit at 2026-03-30 15:43:00.017008+08:00 (target_dt + 17ms)
-2026-03-30 15:43:00.017 [Asia/Shanghai] - INFO - submit parameter (before enc) {'roomId': '13475', 'startTime': '09:30', 'endTime': '22:30', 'day': '2026-03-31', 'seatNum': '659', 'captcha': '', 'wyToken': ''} 
-2026-03-30 15:43:00.017 [Asia/Shanghai] - INFO - submit enc: c909860cae7fb3383113e2e58f905124
-2026-03-30 15:43:00.169 [Asia/Shanghai] - INFO - {'msg': '当前区域未到开放预约时间，请咨询管理员确认该区域开放时间', 'success': False}
-2026-03-30 15:43:00.169 [Asia/Shanghai] - INFO - [strategic] First submit failed, prepare second submit with NEW page token
-2026-03-30 15:43:00.563 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 15:43:00.564 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774856580564.html
-2026-03-30 15:43:00.564 [Asia/Shanghai] - ERROR - [strategic] Failed to get page token for second submit, skip to third/normal flow
-2026-03-30 15:43:00.564 [Asia/Shanghai] - INFO - [strategic] Second submit failed, prepare third submit with NEW page token
-2026-03-30 15:43:01.008 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 15:43:01.008 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774856581008.html
-2026-03-30 15:43:01.009 [Asia/Shanghai] - ERROR - [strategic] Failed to get page token for third submit, give up strategic submits for this config
-2026-03-30 15:43:01.009 [Asia/Shanghai] - INFO - [seat-ordered-after-strategic] Config 0: try seat 660 (base 659, offset +1, attempt 1/10)
-2026-03-30 15:43:01.009 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 15:43:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 15:43:01.009 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['660'] try -----------
-2026-03-30 15:43:01.396 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 15:43:01.397 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774856581396.html
-2026-03-30 15:43:01.398 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 15:43:01.398 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 15:43:01.398 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 658 (base 659, offset -1, attempt 2/10)
-2026-03-30 15:43:01.398 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 15:43:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 15:43:01.399 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['658'] try -----------
-2026-03-30 15:43:01.822 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 15:43:01.823 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774856581823.html
-2026-03-30 15:43:01.823 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 15:43:01.823 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 15:43:01.823 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 661 (base 659, offset +2, attempt 3/10)
-2026-03-30 15:43:01.823 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 15:43:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 15:43:01.823 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['661'] try -----------
-2026-03-30 15:43:12.029 [Asia/Shanghai] - INFO - start time 2026-03-30 15:43:12.029, action off, target_dt 2026-03-30 15:44:00+08:00
-2026-03-30 15:43:46.000 [Asia/Shanghai] - INFO - [strategic] Start first attempt for 13838213320 -- ['09:30', '22:30'] -- ['659'] -- seatPageId=13475 -- fidEnc=4a18e12602b24c8c
-2026-03-30 15:43:46.412 [Asia/Shanghai] - INFO - User Fx68dy49z7os7B1Gu/D+5w== login successfully
-2026-03-30 15:43:57.500 [Asia/Shanghai] - INFO - [warm] Start connection pre-warm request via https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 15:43:57.831 [Asia/Shanghai] - INFO - [warm] 连接追踪：连接池=https://office.chaoxing.com，池对象=0x106f2cf80，发送前连接数=0，请求数=0，发送后连接数=1，请求数=1，状态码=200
-2026-03-30 15:43:59.840 [Asia/Shanghai] - INFO - [strategic] [A] Pre-fetch page token at 2026-03-30 15:43:59.840008+08:00 (target_dt - 160ms) from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 15:44:00.056 [Asia/Shanghai] - INFO - [strategic] Got page token for first submit from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 08b40f3f4b154bb4b47cdcc9f140684e_297408784, value: 08b40f3f4b154bb4b47cdcc9f140684e_297408784
-2026-03-30 15:44:00.056 [Asia/Shanghai] - INFO - [strategic] [A] First submit at 2026-03-30 15:44:00.056332+08:00 (target_dt + 17ms)
-2026-03-30 15:44:00.056 [Asia/Shanghai] - INFO - submit parameter (before enc) {'roomId': '13475', 'startTime': '09:30', 'endTime': '22:30', 'day': '2026-03-31', 'seatNum': '659', 'captcha': '', 'wyToken': ''} 
-2026-03-30 15:44:00.056 [Asia/Shanghai] - INFO - submit enc: cb2449a5629bf9122fb016617088d283
-2026-03-30 15:44:00.173 [Asia/Shanghai] - INFO - {'msg': '当前区域未到开放预约时间，请咨询管理员确认该区域开放时间', 'success': False}
-2026-03-30 15:44:00.173 [Asia/Shanghai] - INFO - [strategic] First submit failed, prepare second submit with NEW page token
-2026-03-30 15:44:00.547 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'http://office-static.chaoxing.com/r/'   phot...
-2026-03-30 15:44:00.548 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774856640547.html
-2026-03-30 15:44:00.549 [Asia/Shanghai] - ERROR - [strategic] Failed to get page token for second submit, skip to third/normal flow
-2026-03-30 15:44:00.549 [Asia/Shanghai] - INFO - [strategic] Second submit failed, prepare third submit with NEW page token
-2026-03-30 17:32:30.886 [Asia/Shanghai] - INFO - start time 2026-03-30 17:32:30.886, action off, target_dt 2026-03-30 17:33:00+08:00
-2026-03-30 17:32:46.000 [Asia/Shanghai] - INFO - [strategic] Start first attempt for 13838213320 -- ['09:30', '22:30'] -- ['659'] -- seatPageId=13475 -- fidEnc=4a18e12602b24c8c
-2026-03-30 17:32:46.370 [Asia/Shanghai] - INFO - User Fx68dy49z7os7B1Gu/D+5w== login successfully
-2026-03-30 17:32:57.500 [Asia/Shanghai] - INFO - [warm] Start connection pre-warm request via https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 17:32:57.780 [Asia/Shanghai] - INFO - [warm] 连接追踪：连接池=https://office.chaoxing.com，池对象=0x1036a3470，发送前连接数=0，请求数=0，发送后连接数=1，请求数=1，状态码=200
-2026-03-30 17:32:59.840 [Asia/Shanghai] - INFO - [strategic] [A] Pre-fetch page token at 2026-03-30 17:32:59.840006+08:00 (target_dt - 160ms) from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 17:32:59.981 [Asia/Shanghai] - INFO - [strategic] Got page token for first submit from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 6ed8dce34a044897beb9ef06a7c121c2_297408784, value: 6ed8dce34a044897beb9ef06a7c121c2_297408784
-2026-03-30 17:33:00.019 [Asia/Shanghai] - INFO - [strategic] [A] First submit at 2026-03-30 17:33:00.019004+08:00 (target_dt + 19ms)
-2026-03-30 17:33:00.019 [Asia/Shanghai] - INFO - submit parameter (before enc) {'roomId': '13475', 'startTime': '09:30', 'endTime': '22:30', 'day': '2026-03-31', 'seatNum': '659', 'captcha': '', 'wyToken': ''} 
-2026-03-30 17:33:00.019 [Asia/Shanghai] - INFO - submit enc: 8a00acf5a2b92e92758fe1e5f2f5004e
-2026-03-30 17:33:00.130 [Asia/Shanghai] - INFO - {'msg': '当前区域未到开放预约时间，请咨询管理员确认该区域开放时间', 'success': False}
-2026-03-30 17:33:00.130 [Asia/Shanghai] - INFO - [strategic] First submit failed, prepare second submit with NEW page token
-2026-03-30 17:33:00.130 [Asia/Shanghai] - INFO - [strategic] [A] 第二枪开始轻探测（沿用 FAST_PROBE_DEADLINE_MS=1100ms 截止），目标链接：https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c，实际启动时间 2026-03-30 17:33:00.130700+08:00
-2026-03-30 17:33:00.225 [Asia/Shanghai] - INFO - 第一枪轻探测连接复用：连接池=https://office.chaoxing.com，是否复用=是，原因=预热后连接数保持 1，请求数 1->4；池对象=0x1036a3470
-2026-03-30 17:33:00.232 [Asia/Shanghai] - INFO - [strategic] 快速探测第 1 次：页面仍未开放；探测时间 2026-03-30 17:33:00.231828+08:00，距目标时刻 231.8ms
-2026-03-30 17:33:00.408 [Asia/Shanghai] - INFO - [strategic] 快速探测第 2 次：页面仍未开放；探测时间 2026-03-30 17:33:00.408822+08:00，距目标时刻 408.8ms
-2026-03-30 17:33:00.500 [Asia/Shanghai] - INFO - [strategic] 快速探测第 3 次：页面仍未开放；探测时间 2026-03-30 17:33:00.500912+08:00，距目标时刻 500.9ms
-2026-03-30 17:33:00.601 [Asia/Shanghai] - INFO - [strategic] 快速探测第 4 次：页面仍未开放；探测时间 2026-03-30 17:33:00.601464+08:00，距目标时刻 601.5ms
-2026-03-30 17:33:00.689 [Asia/Shanghai] - INFO - [strategic] 快速探测第 5 次：页面仍未开放；探测时间 2026-03-30 17:33:00.689943+08:00，距目标时刻 689.9ms
-2026-03-30 17:33:00.783 [Asia/Shanghai] - INFO - [strategic] 快速探测第 6 次：页面仍未开放；探测时间 2026-03-30 17:33:00.783348+08:00，距目标时刻 783.3ms
-2026-03-30 17:33:00.926 [Asia/Shanghai] - INFO - [strategic] 快速探测第 7 次：页面仍未开放；探测时间 2026-03-30 17:33:00.926328+08:00，距目标时刻 926.3ms
-2026-03-30 17:33:01.049 [Asia/Shanghai] - INFO - [strategic] 快速探测第 8 次：页面仍未开放；探测时间 2026-03-30 17:33:01.048973+08:00，距目标时刻 1049.0ms
-2026-03-30 17:33:01.171 [Asia/Shanghai] - INFO - [strategic] 快速探测第 9 次：页面仍未开放；探测时间 2026-03-30 17:33:01.171404+08:00，距目标时刻 1171.4ms
-2026-03-30 17:33:01.171 [Asia/Shanghai] - WARNING - [strategic] 快速探测在第 9 次达到硬截止时间；距目标时刻 1171.4ms，强制切换到正式取 token
-2026-03-30 17:33:01.352 [Asia/Shanghai] - WARNING - Get page token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c stop refreshing after retry 1: reached retry deadline 2026-03-30 17:33:01.100000+08:00
-2026-03-30 17:33:01.463 [Asia/Shanghai] - WARNING - Get page token from https://office.chaoxing.com/front/third/apps/seat/select?id={roomId}&day={day}&backLevel=2&seatId={seatPageId}&fidEnc={fidEnc} stop refreshing after retry 1: reached retry deadline 2026-03-30 17:33:01.100000+08:00
-2026-03-30 17:33:01.540 [Asia/Shanghai] - WARNING - Get page token from https://office.chaoxing.com/front/third/apps/seatengine/select?id={roomId}&day={day}&backLevel=2&seatId={seatPageId}&fidEnc={fidEnc} stop refreshing after retry 1: reached retry deadline 2026-03-30 17:33:01.100000+08:00
-2026-03-30 17:33:01.541 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'https://office-static.chaoxing.com/r/'   pho...
-2026-03-30 17:33:01.542 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774863181541.html
-2026-03-30 17:33:01.542 [Asia/Shanghai] - ERROR - [strategic] Failed to get page token for second submit, skip to third/normal flow
-2026-03-30 17:33:01.542 [Asia/Shanghai] - INFO - [strategic] Second submit failed, prepare third submit with NEW page token
-2026-03-30 17:33:01.890 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'https://office-static.chaoxing.com/r/'   pho...
-2026-03-30 17:33:01.891 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774863181890.html
-2026-03-30 17:33:01.891 [Asia/Shanghai] - ERROR - [strategic] Failed to get page token for third submit, give up strategic submits for this config
-2026-03-30 17:33:01.891 [Asia/Shanghai] - INFO - [seat-ordered-after-strategic] Config 0: try seat 660 (base 659, offset +1, attempt 1/10)
-2026-03-30 17:33:01.891 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 17:33:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 17:33:01.892 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['660'] try -----------
-2026-03-30 17:33:02.309 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'https://office-static.chaoxing.com/r/'   pho...
-2026-03-30 17:33:02.310 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774863182310.html
-2026-03-30 17:33:02.310 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 17:33:02.311 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 17:33:02.311 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 658 (base 659, offset -1, attempt 2/10)
-2026-03-30 17:33:02.311 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 17:33:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 17:33:02.311 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['658'] try -----------
-2026-03-30 17:33:02.698 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'https://office-static.chaoxing.com/r/'   pho...
-2026-03-30 17:33:02.698 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774863182698.html
-2026-03-30 17:33:02.699 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 17:33:02.699 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 17:33:02.699 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 661 (base 659, offset +2, attempt 3/10)
-2026-03-30 17:33:02.699 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 17:33:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 17:33:02.699 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['661'] try -----------
-2026-03-30 19:37:17.252 [Asia/Shanghai] - INFO - start time 2026-03-30 19:37:17.252, action off, target_dt 2026-03-30 19:38:00+08:00
-2026-03-30 19:37:46.000 [Asia/Shanghai] - INFO - [strategic] Start first attempt for 13838213320 -- ['09:30', '22:30'] -- ['659'] -- seatPageId=13475 -- fidEnc=4a18e12602b24c8c
-2026-03-30 19:37:46.377 [Asia/Shanghai] - INFO - User Fx68dy49z7os7B1Gu/D+5w== login successfully
-2026-03-30 19:37:57.500 [Asia/Shanghai] - INFO - [warm] Start connection pre-warm request via https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 19:37:57.846 [Asia/Shanghai] - INFO - [warm] 连接追踪：连接池=https://office.chaoxing.com，池对象=0x106ebed80，发送前连接数=0，请求数=0，发送后连接数=1，请求数=1，状态码=200
-2026-03-30 19:37:59.840 [Asia/Shanghai] - INFO - [strategic] [A] Pre-fetch page token at 2026-03-30 19:37:59.840012+08:00 (target_dt - 160ms) from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 19:37:59.964 [Asia/Shanghai] - INFO - [strategic] Got page token for first submit from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 994f5c60dc5e4919bef91092fa4c62d1_297408784, value: 994f5c60dc5e4919bef91092fa4c62d1_297408784
-2026-03-30 19:38:00.019 [Asia/Shanghai] - INFO - [strategic] [A] First submit at 2026-03-30 19:38:00.019011+08:00 (target_dt + 19ms)
-2026-03-30 19:38:00.019 [Asia/Shanghai] - INFO - submit parameter (before enc) {'roomId': '13475', 'startTime': '09:30', 'endTime': '22:30', 'day': '2026-03-31', 'seatNum': '659', 'captcha': '', 'wyToken': ''} 
-2026-03-30 19:38:00.019 [Asia/Shanghai] - INFO - submit enc: 1d5a85fccdecb18c2e6f56d0852be26e
-2026-03-30 19:38:00.137 [Asia/Shanghai] - INFO - {'msg': '当前区域未到开放预约时间，请咨询管理员确认该区域开放时间', 'success': False}
-2026-03-30 19:38:00.137 [Asia/Shanghai] - INFO - [strategic] First submit failed, prepare second submit with NEW page token
-2026-03-30 19:38:00.138 [Asia/Shanghai] - INFO - [strategic] [A] 第二枪开始轻探测（沿用 FAST_PROBE_DEADLINE_MS=1100ms 截止），目标链接：https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c，实际启动时间 2026-03-30 19:38:00.138036+08:00
-2026-03-30 19:38:00.322 [Asia/Shanghai] - INFO - 第一枪轻探测连接复用：连接池=https://office.chaoxing.com，是否复用=是，原因=预热后连接数保持 1，请求数 1->4；池对象=0x106ebed80
-2026-03-30 19:38:00.328 [Asia/Shanghai] - INFO - [strategic] 快速探测第 1 次：页面仍未开放；探测时间 2026-03-30 19:38:00.327423+08:00，距目标时刻 327.4ms
-2026-03-30 19:38:00.423 [Asia/Shanghai] - INFO - [strategic] 快速探测第 2 次：页面仍未开放；探测时间 2026-03-30 19:38:00.423045+08:00，距目标时刻 423.0ms
-2026-03-30 19:38:00.529 [Asia/Shanghai] - INFO - [strategic] 快速探测第 3 次：页面仍未开放；探测时间 2026-03-30 19:38:00.529571+08:00，距目标时刻 529.6ms
-2026-03-30 19:38:00.851 [Asia/Shanghai] - INFO - [strategic] 快速探测第 4 次：页面仍未开放；探测时间 2026-03-30 19:38:00.851740+08:00，距目标时刻 851.7ms
-2026-03-30 19:38:00.955 [Asia/Shanghai] - INFO - [strategic] 快速探测第 5 次：页面仍未开放；探测时间 2026-03-30 19:38:00.955330+08:00，距目标时刻 955.3ms
-2026-03-30 19:38:01.046 [Asia/Shanghai] - INFO - [strategic] 快速探测第 6 次：页面仍未开放；探测时间 2026-03-30 19:38:01.046422+08:00，距目标时刻 1046.4ms
-2026-03-30 19:38:01.151 [Asia/Shanghai] - INFO - [strategic] 快速探测第 7 次：页面仍未开放；探测时间 2026-03-30 19:38:01.151156+08:00，距目标时刻 1151.2ms
-2026-03-30 19:38:01.151 [Asia/Shanghai] - WARNING - [strategic] 快速探测在第 7 次达到硬截止时间；距目标时刻 1151.2ms，强制切换到正式取 token
-2026-03-30 19:38:01.452 [Asia/Shanghai] - WARNING - Get page token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c stop refreshing after retry 1: reached retry deadline 2026-03-30 19:38:01.100000+08:00
-2026-03-30 19:38:01.552 [Asia/Shanghai] - WARNING - Get page token from https://office.chaoxing.com/front/third/apps/seat/select?id={roomId}&day={day}&backLevel=2&seatId={seatPageId}&fidEnc={fidEnc} stop refreshing after retry 1: reached retry deadline 2026-03-30 19:38:01.100000+08:00
-2026-03-30 19:38:01.652 [Asia/Shanghai] - WARNING - Get page token from https://office.chaoxing.com/front/third/apps/seatengine/select?id={roomId}&day={day}&backLevel=2&seatId={seatPageId}&fidEnc={fidEnc} stop refreshing after retry 1: reached retry deadline 2026-03-30 19:38:01.100000+08:00
-2026-03-30 19:38:01.652 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'https://office-static.chaoxing.com/r/'   pho...
-2026-03-30 19:38:01.652 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774870681652.html
-2026-03-30 19:38:01.652 [Asia/Shanghai] - ERROR - [strategic] Failed to get page token for second submit, skip to third/normal flow
-2026-03-30 19:38:01.653 [Asia/Shanghai] - INFO - [strategic] Second submit failed, prepare third submit with NEW page token
-2026-03-30 19:38:02.087 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'https://office-static.chaoxing.com/r/'   pho...
-2026-03-30 19:38:02.088 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774870682087.html
-2026-03-30 19:38:02.089 [Asia/Shanghai] - ERROR - [strategic] Failed to get page token for third submit, give up strategic submits for this config
-2026-03-30 19:38:02.089 [Asia/Shanghai] - INFO - [seat-ordered-after-strategic] Config 0: try seat 660 (base 659, offset +1, attempt 1/10)
-2026-03-30 19:38:02.089 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 19:38:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 19:38:02.089 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['660'] try -----------
-2026-03-30 19:38:02.609 [Asia/Shanghai] - ERROR - Failed to get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c, html snippet: <!DOCTYPE html> <html> <head>   <base href="https://office.chaoxing.com/">   <meta charset="UTF-8">   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">   <title>出错了</title> <base href="https://office.chaoxing.com/"> <script type="text/javascript">   var photoUrl = 'http://photo.chaoxing.com'   var panUrl = 'http://pan-yz.chaoxing.com'   var noteUrl = 'http://noteyd.chaoxing.com'   var staticDomain = 'https://office-static.chaoxing.com/r/'   pho...
-2026-03-30 19:38:02.610 [Asia/Shanghai] - ERROR - Full HTML of seat page saved to /Users/baofuzhang/ppp/Main_ChaoXingReserveSeat/utils/../html_debug/seat_1774870682609.html
-2026-03-30 19:38:02.610 [Asia/Shanghai] - INFO - Get token from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: 
-2026-03-30 19:38:02.610 [Asia/Shanghai] - WARNING - No submit_enc token fetched, break current submit loop and retry with new session
-2026-03-30 19:38:02.610 [Asia/Shanghai] - INFO - [seat-ordered] Config 0: try seat 658 (base 659, offset -1, attempt 2/10)
-2026-03-30 19:38:02.610 [Asia/Shanghai] - INFO - Global settings: 
-SLEEPTIME: 0.05
-ENDTIME: 19:38:40
-ENABLE_SLIDER: False
-ENABLE_TEXTCLICK: False
-RESERVE_NEXT_DAY: True
-2026-03-30 19:38:02.610 [Asia/Shanghai] - INFO - ----------- 13838213320 -- ['09:30', '22:30'] -- ['658'] try -----------
-2026-03-30 19:56:31.510 [Asia/Shanghai] - INFO - start time 2026-03-30 19:56:31.510, action off, target_dt 2026-03-30 20:00:00+08:00
-2026-03-30 19:59:46.000 [Asia/Shanghai] - INFO - [strategic] Start first attempt for 13838213320 -- ['09:30', '22:30'] -- ['659'] -- seatPageId=13475 -- fidEnc=4a18e12602b24c8c
-2026-03-30 19:59:46.362 [Asia/Shanghai] - INFO - User Fx68dy49z7os7B1Gu/D+5w== login successfully
-2026-03-30 19:59:57.500 [Asia/Shanghai] - INFO - [warm] Start connection pre-warm request via https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 19:59:57.752 [Asia/Shanghai] - INFO - [warm] 连接追踪：连接池=https://office.chaoxing.com，池对象=0x109c58110，发送前连接数=0，请求数=0，发送后连接数=1，请求数=1，状态码=200
-2026-03-30 19:59:59.840 [Asia/Shanghai] - INFO - [strategic] [A] Pre-fetch page token at 2026-03-30 19:59:59.840012+08:00 (target_dt - 160ms) from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c
-2026-03-30 20:00:00.021 [Asia/Shanghai] - INFO - [strategic] Got page token for first submit from https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-30&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c: d57085f667f841df9a8ee38ea1013efc_297408784, value: d57085f667f841df9a8ee38ea1013efc_297408784
-2026-03-30 20:00:00.021 [Asia/Shanghai] - INFO - [strategic] [A] First submit at 2026-03-30 20:00:00.021783+08:00 (target_dt + 19ms)
-2026-03-30 20:00:00.022 [Asia/Shanghai] - INFO - submit parameter (before enc) {'roomId': '13475', 'startTime': '09:30', 'endTime': '22:30', 'day': '2026-03-31', 'seatNum': '659', 'captcha': '', 'wyToken': ''} 
-2026-03-30 20:00:00.022 [Asia/Shanghai] - INFO - submit enc: d1cf6e6b0ba45c6015eb97224281ad3f
-2026-03-30 20:00:00.097 [Asia/Shanghai] - INFO - {'msg': '当前区域未到开放预约时间，请咨询管理员确认该区域开放时间', 'success': False}
-2026-03-30 20:00:00.097 [Asia/Shanghai] - INFO - [strategic] First submit failed, prepare second submit with NEW page token
-2026-03-30 20:00:00.097 [Asia/Shanghai] - INFO - [strategic] [A] 第二枪开始轻探测（沿用 FAST_PROBE_DEADLINE_MS=1100ms 截止），目标链接：https://office.chaoxing.com/front/third/apps/seat/select?id=13475&day=2026-03-31&backLevel=2&seatId=13475&fidEnc=4a18e12602b24c8c，实际启动时间 2026-03-30 20:00:00.097354+08:00
-2026-03-30 20:00:00.213 [Asia/Shanghai] - INFO - 第一枪轻探测连接复用：连接池=https://office.chaoxing.com，是否复用=是，原因=预热后连接数保持 1，请求数 1->4；池对象=0x109c58110
-2026-03-30 20:00:00.216 [Asia/Shanghai] - INFO - [strategic] 快速探测第 1 次：拿到可复用 token；探测时间 2026-03-30 20:00:00.215553+08:00，距目标时刻 215.6ms，跳过额外 token 抓取
-2026-03-30 20:00:00.217 [Asia/Shanghai] - INFO - [strategic] Second submit immediately after fetching NEW page token
-2026-03-30 20:00:00.217 [Asia/Shanghai] - INFO - submit parameter (before enc) {'roomId': '13475', 'startTime': '09:30', 'endTime': '22:30', 'day': '2026-03-31', 'seatNum': '659', 'captcha': '', 'wyToken': ''} 
-2026-03-30 20:00:00.217 [Asia/Shanghai] - INFO - submit enc: ff89a967afd9d74f5155f02c6a70b493
-2026-03-30 20:00:01.032 [Asia/Shanghai] - INFO - {'data': {'preSignDuration': 0, 'payUrl': '', 'signDuration': 30, 'seatReserve': {'deptId': 22640, 'duration': '13.0', 'endTime': 1774967400000, 'expireTime': 1774922400000, 'firstLevelName': '郑东校区', 'id': 174895102, 'inserttime': 1774872000000, 'learnDuration': 0, 'pushFormUserId': 0, 'rDeptId': 22640, 'roomId': 13475, 'seatNum': '659', 'secondLevelName': '3楼', 'signDuration': 30, 'startTime': 1774920600000, 'status': 0, 'thirdLevelName': '东电子阅览区', 'today': '2026-03-31', 'uid': 297408784, 'updateUid': 297408784, 'updatetime': 1774872000000}}, 'success': True}

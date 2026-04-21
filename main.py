@@ -577,6 +577,46 @@ def strategic_first_attempt(
                 )
             )
         captcha1 = captcha2 = captcha3 = ""
+        live_captcha_results = None
+
+        def _resolve_textclick_with_retries(
+            captcha_session,
+            label: str,
+            *,
+            max_retries: int | None = 3,
+            deadline_func=None,
+        ) -> str:
+            attempt = 0
+            while max_retries is None or attempt < max_retries:
+                attempt += 1
+                if deadline_func is not None and deadline_func() <= 0:
+                    logging.warning(
+                        f"[strategic] Textclick {label} stopped before success: preheat deadline reached"
+                    )
+                    return ""
+                try:
+                    captcha = captcha_session.resolve_captcha("textclick") or ""
+                except Exception as e:
+                    logging.debug(f"[strategic] Textclick {label} attempt {attempt} raised: {e}")
+                    captcha = ""
+                if captcha:
+                    logging.info(
+                        f"[strategic] Textclick {label} resolved on attempt {attempt}"
+                    )
+                    return captcha
+                if max_retries is None or attempt < max_retries:
+                    if deadline_func is None:
+                        time.sleep(0.2)
+                    else:
+                        sleep_s = min(0.2, max(0.0, deadline_func()))
+                        if sleep_s > 0:
+                            time.sleep(sleep_s)
+
+            logging.warning(
+                f"[strategic] Textclick {label} failed after {max_retries} attempts"
+            )
+            return ""
+
         is_primary_strategy_config = shared_strategy_session is None
         if is_primary_strategy_config:
             # 1. 只有首个配置执行登录和预热；后续配置直接复用这个登录态。
@@ -680,6 +720,7 @@ def strategic_first_attempt(
                     return captcha
 
                 captcha_results = {1: "", 2: "", 3: ""}
+                live_captcha_results = captcha_results
                 remaining = _remaining_captcha_seconds()
                 if remaining <= 0:
                     logging.warning("[strategic] Captcha preheat budget exhausted before slider starts, skip preheat")
@@ -744,14 +785,13 @@ def strategic_first_attempt(
                 logging.info(f"[strategic] Pre-resolved slider captcha2: {captcha2}")
                 logging.info(f"[strategic] Pre-resolved slider captcha3: {captcha3}")
             elif ENABLE_TEXTCLICK:
-                def _resolve_textclick_captcha_parallel(slot_idx: int, max_retries: int = 3) -> str:
-                    for i in range(max_retries):
-                        if _remaining_captcha_seconds() <= 0:
-                            logging.warning(
-                                f"[strategic] Textclick captcha{slot_idx} skipped: preheat deadline reached"
-                            )
-                            return ""
-
+                captcha_results = {1: "", 2: "", 3: ""}
+                live_captcha_results = captcha_results
+                remaining = _remaining_captcha_seconds()
+                if remaining <= 0:
+                    logging.warning("[strategic] Captcha preheat budget exhausted before textclick starts, skip preheat")
+                else:
+                    def _make_textclick_worker():
                         worker = reserve(
                             sleep_time=SLEEPTIME,
                             max_attempt=MAX_ATTEMPT,
@@ -769,89 +809,42 @@ def strategic_first_attempt(
                             seat_page_id=seat_page_id,
                             fid_enc=fid_enc,
                         )
+                        return worker
 
-                        captcha = worker.resolve_captcha("textclick")
-                        if captcha:
-                            logging.info(
-                                f"[strategic] Textclick captcha{slot_idx} resolved on attempt {i + 1}"
-                            )
-                            return captcha
-
-                        logging.warning(
-                            f"[strategic] Textclick captcha{slot_idx} failed on attempt "
-                            f"{i + 1}/{max_retries}, retrying"
-                        )
-                        time.sleep(0.2)
-
-                    logging.error(
-                        f"[strategic] Textclick captcha{slot_idx} failed after {max_retries} retries"
-                    )
-                    return ""
-
-                captcha_results = {1: "", 2: "", 3: ""}
-                remaining = _remaining_captcha_seconds()
-                if remaining <= 0:
-                    logging.warning("[strategic] Captcha preheat budget exhausted before textclick starts, skip preheat")
-                else:
-                    def _worker(slot_idx: int):
+                    def _worker():
                         try:
-                            captcha_results[slot_idx] = _resolve_textclick_captcha_parallel(slot_idx) or ""
+                            captcha_results[1] = _resolve_textclick_with_retries(
+                                _make_textclick_worker(),
+                                "preheat captcha1",
+                                max_retries=3,
+                                deadline_func=_remaining_captcha_seconds,
+                            ) or ""
                         except Exception as e:
-                            logging.warning(f"[strategic] Textclick captcha{slot_idx} thread failed: {e}")
-                            captcha_results[slot_idx] = ""
+                            logging.warning(f"[strategic] Textclick captcha1 preheat thread failed: {e}")
+                            captcha_results[1] = ""
 
                     deadline_mono = time.monotonic() + remaining
-
-                    def _start_threads(slot_ids: list[int]):
-                        local_threads = []
-                        for idx in slot_ids:
-                            t = threading.Thread(
-                                target=_worker,
-                                args=(idx,),
-                                name=f"textclick-captcha-{idx}",
-                                daemon=True,
-                            )
-                            local_threads.append((idx, t))
-                            t.start()
-                        return local_threads
-
-                    def _join_threads_until_deadline(threads_to_join):
-                        for _, t in threads_to_join:
-                            timeout_left = deadline_mono - time.monotonic()
-                            if timeout_left <= 0:
-                                break
-                            t.join(timeout=timeout_left)
-
-                    if remaining < 3:
-                        logging.warning(
-                            "[strategic] Remaining captcha preheat budget < 3s, preheat textclick captcha1/2 first"
-                        )
-                        first_two_threads = _start_threads([1, 2])
-                        _join_threads_until_deadline(first_two_threads)
-
-                        ready_count = sum(1 for i in [1, 2] if captcha_results[i])
-                        if ready_count >= 1:
-                            logging.warning(
-                                "[strategic] Budget < 3s and textclick captcha1/2 already ready, skip captcha3 preheat"
-                            )
-                        else:
-                            timeout_left = deadline_mono - time.monotonic()
-                            if timeout_left > 0:
-                                logging.warning(
-                                    "[strategic] Budget < 3s and textclick captcha1/2 empty, try captcha3 as fallback"
-                                )
-                                third_threads = _start_threads([3])
-                                _join_threads_until_deadline(third_threads)
-                    else:
-                        all_threads = _start_threads([1, 2, 3])
-                        _join_threads_until_deadline(all_threads)
+                    logging.info(
+                        "[strategic] Preheat one textclick captcha only; "
+                        "new textclick captcha will be resolved after a failed submit"
+                    )
+                    t = threading.Thread(
+                        target=_worker,
+                        name="textclick-captcha-1",
+                        daemon=True,
+                    )
+                    t.start()
+                    timeout_left = deadline_mono - time.monotonic()
+                    if timeout_left > 0:
+                        t.join(timeout=timeout_left)
 
                 captcha1 = captcha_results[1]
-                captcha2 = captcha_results[2]
-                captcha3 = captcha_results[3]
-                logging.info(f"[strategic] Pre-resolved textclick captcha1: {captcha1}")
-                logging.info(f"[strategic] Pre-resolved textclick captcha2: {captcha2}")
-                logging.info(f"[strategic] Pre-resolved textclick captcha3: {captcha3}")
+                captcha2 = ""
+                captcha3 = ""
+                logging.info(
+                    "[strategic] Pre-resolved textclick captcha ready: %s",
+                    bool(captcha1),
+                )
         else:
             s = shared_strategy_session
             s.requests.headers.update({"Host": "office.chaoxing.com"})
@@ -875,21 +868,36 @@ def strategic_first_attempt(
                 captcha3 = s.resolve_captcha("slide") or ""
             elif ENABLE_TEXTCLICK:
                 logging.info(
-                    "[strategic] Captcha preheat skipped for this config; resolve textclick captchas on demand"
+                    "[strategic] Captcha preheat skipped for this config; resolve one textclick captcha first"
                 )
-                captcha1 = s.resolve_captcha("textclick") or ""
-                captcha2 = s.resolve_captcha("textclick") or ""
-                captcha3 = s.resolve_captcha("textclick") or ""
+                captcha1 = _resolve_textclick_with_retries(
+                    s,
+                    "reuse-session captcha1",
+                    max_retries=3,
+                ) or ""
+                captcha2 = ""
+                captcha3 = ""
 
         captcha_required = bool(ENABLE_SLIDER or ENABLE_TEXTCLICK)
         captcha_type = "slide" if ENABLE_SLIDER else "textclick"
         raw_captchas = [captcha1, captcha2, captcha3]
-        allow_on_demand_captcha = captcha_required and not any(raw_captchas)
         captchas_for_submit = [captcha for captcha in raw_captchas if captcha]
-        if captcha_required and captchas_for_submit != raw_captchas:
+        expected_single_textclick = bool(
+            ENABLE_TEXTCLICK
+            and captchas_for_submit
+            and raw_captchas[0]
+            and not raw_captchas[1]
+            and not raw_captchas[2]
+        )
+        if captcha_required and captchas_for_submit != raw_captchas and not expected_single_textclick:
             logging.warning(
                 "[strategic] Normalize captcha submit order to avoid empty captcha: "
                 f"raw={raw_captchas}, non_empty_count={len(captchas_for_submit)}"
+            )
+        elif expected_single_textclick:
+            logging.info(
+                "[strategic] Textclick submit order starts with one prepared captcha; "
+                "each next captcha will be resolved only after the previous submit fails"
             )
         captchas_for_submit = (captchas_for_submit + ["", "", ""])[:3]
         captcha1, captcha2, captcha3 = captchas_for_submit
@@ -899,10 +907,83 @@ def strategic_first_attempt(
                 f"captcha1={captcha1}, captcha2={captcha2}, captcha3={captcha3}"
             )
 
+        def _refresh_submit_captchas_from_live_results():
+            if not captcha_required or not live_captcha_results:
+                return
+
+            if ENABLE_TEXTCLICK:
+                live_first = live_captcha_results.get(1, "")
+                if live_first and not captchas_for_submit[0]:
+                    captchas_for_submit[0] = live_first
+                    logging.info(
+                        "[strategic] Refreshed first textclick captcha from late preheat result"
+                    )
+                return
+
+            live_captchas = [
+                live_captcha_results.get(1, ""),
+                live_captcha_results.get(2, ""),
+                live_captcha_results.get(3, ""),
+            ]
+            merged = []
+            seen = set()
+            for captcha in captchas_for_submit + live_captchas:
+                if captcha and captcha not in seen:
+                    merged.append(captcha)
+                    seen.add(captcha)
+
+            refreshed = (merged + ["", "", ""])[:3]
+            if refreshed != captchas_for_submit:
+                captchas_for_submit[:] = refreshed
+                logging.info(
+                    "[strategic] Refreshed captcha submit order from late preheat results: "
+                    f"live={live_captchas}, captcha1={captchas_for_submit[0]}, "
+                    f"captcha2={captchas_for_submit[1]}, captcha3={captchas_for_submit[2]}"
+                )
+
+        def _prepare_textclick_captcha_for_submit(
+            shot_idx: int,
+            reason: str,
+            *,
+            max_retries: int | None = 3,
+        ):
+            if not ENABLE_TEXTCLICK:
+                return
+
+            _refresh_submit_captchas_from_live_results()
+            list_idx = shot_idx - 1
+            if not (0 <= list_idx < len(captchas_for_submit)):
+                return
+            if captchas_for_submit[list_idx]:
+                return
+
+            logging.info(
+                f"[strategic] {reason}; immediately resolve one textclick captcha "
+                f"for submit shot {shot_idx}"
+            )
+            captcha = _resolve_textclick_with_retries(
+                s,
+                f"submit shot {shot_idx}",
+                max_retries=max_retries,
+            ) or ""
+            if captcha:
+                captchas_for_submit[list_idx] = captcha
+            else:
+                logging.warning(
+                    f"[strategic] Failed to prepare textclick captcha for submit shot {shot_idx}"
+                )
+
+        def _last_submit_failed_by_captcha() -> bool:
+            if not isinstance(s.last_submit_result, dict):
+                return False
+            msg = str(s.last_submit_result.get("msg", ""))
+            return "验证码" in msg or "captcha" in msg.lower()
+
         def _get_submit_captcha(shot_idx: int) -> str | None:
             if not captcha_required:
                 return ""
 
+            _refresh_submit_captchas_from_live_results()
             list_idx = shot_idx - 1
             captcha = (
                 captchas_for_submit[list_idx]
@@ -912,18 +993,33 @@ def strategic_first_attempt(
             if captcha:
                 return captcha
 
-            if not allow_on_demand_captcha:
-                logging.error(
-                    f"[strategic] Captcha for submit shot {shot_idx} is empty, "
-                    "but at least one pre-resolved captcha exists; skip submit to avoid empty captcha"
+            if ENABLE_TEXTCLICK and shot_idx > 1:
+                previous_idx = list_idx - 1
+                previous_captcha = (
+                    captchas_for_submit[previous_idx]
+                    if 0 <= previous_idx < len(captchas_for_submit)
+                    else ""
                 )
-                return None
+                if previous_captcha and not _last_submit_failed_by_captcha():
+                    captchas_for_submit[list_idx] = previous_captcha
+                    logging.info(
+                        f"[strategic] Reuse previous textclick captcha for submit shot {shot_idx}; "
+                        "last failure was not a captcha error"
+                    )
+                    return previous_captcha
 
             logging.warning(
                 f"[strategic] Captcha for submit shot {shot_idx} is empty, "
-                f"all pre-resolved captchas are empty, resolve {captcha_type} captcha on demand before submit"
+                f"resolve {captcha_type} captcha on demand before submit"
             )
-            captcha = s.resolve_captcha(captcha_type) or ""
+            if ENABLE_TEXTCLICK:
+                captcha = _resolve_textclick_with_retries(
+                    s,
+                    f"submit shot {shot_idx} fallback",
+                    max_retries=3,
+                ) or ""
+            else:
+                captcha = s.resolve_captcha(captcha_type) or ""
             if captcha:
                 if 0 <= list_idx < len(captchas_for_submit):
                     captchas_for_submit[list_idx] = captcha
@@ -1192,6 +1288,12 @@ def strategic_first_attempt(
                     success_list[index] = suc
                     continue
                 logging.info("[strategic] First submit failed, prepare second submit with NEW page token")
+                if _last_submit_failed_by_captcha():
+                    _prepare_textclick_captcha_for_submit(
+                        2,
+                        "First submit failed because of captcha",
+                        max_retries=None,
+                    )
 
                 if STRATEGIC_MODE == "A":
                     token2, value2 = _probe_then_get_page_token(
@@ -1243,6 +1345,12 @@ def strategic_first_attempt(
                     success_list[index] = suc
                     continue
                 logging.info("[strategic] Second submit failed, prepare third submit with NEW page token")
+                if _last_submit_failed_by_captcha():
+                    _prepare_textclick_captcha_for_submit(
+                        3,
+                        "Second submit failed because of captcha",
+                        max_retries=None,
+                    )
 
                 token3, value3 = s._get_page_token(
                     _submit_token_url,

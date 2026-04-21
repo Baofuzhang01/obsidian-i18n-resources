@@ -1906,6 +1906,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .schedule-day-fields input{padding:6px;font-size:12px}
 .slot-row{border-top:1px solid #e8e8e8;padding-top:8px;margin-top:8px}
 .slot-label{font-size:11px;color:#888;margin-bottom:4px}
+.global-time-tools{background:#fafafa;border:1px solid #ececec;border-radius:8px;padding:12px;margin:12px 0}
+.global-config-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.global-config-fields input{padding:8px;font-size:13px}
+.global-config-actions{display:flex;gap:8px;align-items:center;margin-top:8px}
+.global-time-note{font-size:12px;color:#777;line-height:1.7;margin-top:8px}
 .toast{position:fixed;top:20px;right:20px;padding:12px 20px;border-radius:8px;color:#fff;z-index:2000;animation:slideIn 0.3s}
 .toast-success{background:#52c41a}
 .toast-error{background:#ff4d4f}
@@ -1935,7 +1940,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .mapping-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .mapping-note{font-size:12px;color:#777;line-height:1.7;margin-top:10px}
 @media (max-width: 768px){.mapping-inline,.mapping-user-fields{grid-template-columns:1fr}}
-@media (max-width: 768px){.test-override-row{grid-template-columns:1fr}.actions{flex-wrap:wrap}}
+@media (max-width: 768px){.test-override-row,.global-config-fields{grid-template-columns:1fr}.actions,.global-config-actions{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -2480,6 +2485,87 @@ function fillScheduleFormFromSchedule(schedule) {
       document.getElementById("sch_" + d + "_s" + i + "_fidEnc").value = s.fidEnc || "";
     });
   });
+}
+
+function buildScheduleFromForm() {
+  const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+  const schedule = {};
+  days.forEach(d => {
+    const visibleCount = getVisibleSlotsForDay(d);
+    const slotIndexes = Array.from({ length: visibleCount }, (_, i) => i);
+    const slots = slotIndexes.map(i => ({
+      roomid: document.getElementById("sch_" + d + "_s" + i + "_roomid").value.trim(),
+      seatid: document.getElementById("sch_" + d + "_s" + i + "_seatid").value.trim(),
+      times: document.getElementById("sch_" + d + "_s" + i + "_times").value.trim(),
+      seatPageId: document.getElementById("sch_" + d + "_s" + i + "_seatPageId").value.trim(),
+      fidEnc: document.getElementById("sch_" + d + "_s" + i + "_fidEnc").value.trim(),
+    }));
+    schedule[d] = {
+      enabled: document.getElementById("sch_" + d + "_enabled").checked,
+      slots,
+    };
+  });
+  return schedule;
+}
+
+const USER_GLOBAL_SYNC_FIELDS = [
+  { key: "roomid", label: "房间ID", inputId: "global_sync_roomid", normalize: value => String(value || "").trim() },
+  { key: "seatid", label: "座位号", inputId: "global_sync_seatid", normalize: value => String(value || "").trim() },
+  { key: "times", label: "时间段", inputId: "global_sync_times", normalize: value => normalizeTimesLabel(value) },
+  { key: "seatPageId", label: "页面ID", inputId: "global_sync_seatPageId", normalize: value => String(value || "").trim() },
+  { key: "fidEnc", label: "fidEnc", inputId: "global_sync_fidEnc", normalize: value => String(value || "").trim() },
+];
+
+function resetUserGlobalSyncInputs() {
+  USER_GLOBAL_SYNC_FIELDS.forEach(field => {
+    const el = document.getElementById(field.inputId);
+    if (el) el.value = "";
+  });
+}
+
+function syncScheduleJsonFromCurrentForm() {
+  const textarea = document.getElementById("edit_user_schedule_json");
+  if (!textarea) return;
+  textarea.value = JSON.stringify(scheduleToJsonMapping(buildScheduleFromForm()), null, 2);
+}
+
+function applyUserGlobalConfigSync() {
+  const syncValues = USER_GLOBAL_SYNC_FIELDS
+    .map(field => {
+      const el = document.getElementById(field.inputId);
+      const value = field.normalize(el && el.value);
+      return value ? { ...field, value } : null;
+    })
+    .filter(Boolean);
+  if (!syncValues.length) {
+    return toast("请至少填写一个要同步的字段", "error");
+  }
+
+  const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+  let changed = 0;
+  days.forEach(d => {
+    const visibleCount = getVisibleSlotsForDay(d);
+    Array.from({ length: visibleCount }, (_, i) => i).forEach(i => {
+      const slotFields = ["roomid", "seatid", "times", "seatPageId", "fidEnc"].map(key => (
+        document.getElementById("sch_" + d + "_s" + i + "_" + key)
+      ));
+      const hasExistingConfig = slotFields.some(el => el && String(el.value || "").trim());
+      if (!hasExistingConfig) return;
+
+      let slotChanged = false;
+      syncValues.forEach(field => {
+        const el = document.getElementById("sch_" + d + "_s" + i + "_" + field.key);
+        if (!el || el.value === field.value) return;
+        el.value = field.value;
+        slotChanged = true;
+      });
+      if (slotChanged) changed += 1;
+    });
+  });
+
+  if (!changed) return toast("当前没有已有配置需要同步", "error");
+  syncScheduleJsonFromCurrentForm();
+  toast("已同步 " + changed + " 条配置");
 }
 
 function setVisibleSlotsForDay(day, count) {
@@ -3408,6 +3494,21 @@ function renderUserModal() {
             </div>
           </div>
           <h4 style="margin:20px 0 12px">周计划配置</h4>
+          <div id="user_global_time_tools" class="global-time-tools" style="display:none">
+            <div class="global-config-fields">
+              <input type="text" id="global_sync_roomid" placeholder="房间ID">
+              <input type="text" id="global_sync_seatid" placeholder="座位号">
+              <input type="text" id="global_sync_times" placeholder="时间段 08:00-12:00">
+              <input type="text" id="global_sync_seatPageId" placeholder="页面ID">
+              <input type="text" id="global_sync_fidEnc" placeholder="fidEnc">
+              <span></span>
+            </div>
+            <div class="global-config-actions">
+              <button type="button" class="btn btn-primary" onclick="applyUserGlobalConfigSync()">同步到已有配置</button>
+              <button type="button" class="btn btn-secondary" onclick="resetUserGlobalSyncInputs()">清空输入</button>
+            </div>
+            <div class="global-time-note">只同步已填写的字段，空着的字段保持原样；只作用于当前用户已有配置，同步后仍需点击“保存用户”。</div>
+          </div>
           <div class="schedule-grid">
             \${days.map(d => \`
               <div class="schedule-day">
@@ -3748,6 +3849,8 @@ function showAddUser(prefill = null) {
   document.getElementById("edit_user_username").value = "";
   document.getElementById("edit_user_password").value = "";
   document.getElementById("edit_user_remark").value = "";
+  resetUserGlobalSyncInputs();
+  document.getElementById("user_global_time_tools").style.display = "none";
   const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
   days.forEach(d => {
     document.getElementById("sch_" + d + "_enabled").checked = false;
@@ -3792,6 +3895,8 @@ async function showEditUser(userId) {
   document.getElementById("edit_user_remark").value = u.remark || "";
   fillScheduleFormFromSchedule(u.schedule || {});
   document.getElementById("edit_user_schedule_json").value = JSON.stringify(scheduleToJsonMapping(u.schedule || {}), null, 2);
+  resetUserGlobalSyncInputs();
+  document.getElementById("user_global_time_tools").style.display = "";
   document.getElementById("userModal").classList.add("show");
 }
 
@@ -3803,24 +3908,7 @@ async function doSaveUser() {
   const password = document.getElementById("edit_user_password").value;
   const remark = document.getElementById("edit_user_remark").value.trim();
   if (!phone) return toast("请填写手机号（登录账号）", "error");
-  const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-
-  const schedule = {};
-  days.forEach(d => {
-    const visibleCount = getVisibleSlotsForDay(d);
-    const slotIndexes = Array.from({ length: visibleCount }, (_, i) => i);
-    const slots = slotIndexes.map(i => ({
-      roomid: document.getElementById("sch_" + d + "_s" + i + "_roomid").value.trim(),
-      seatid: document.getElementById("sch_" + d + "_s" + i + "_seatid").value.trim(),
-      times: document.getElementById("sch_" + d + "_s" + i + "_times").value.trim(),
-      seatPageId: document.getElementById("sch_" + d + "_s" + i + "_seatPageId").value.trim(),
-      fidEnc: document.getElementById("sch_" + d + "_s" + i + "_fidEnc").value.trim(),
-    }));
-    schedule[d] = {
-      enabled: document.getElementById("sch_" + d + "_enabled").checked,
-      slots,
-    };
-  });
+  const schedule = buildScheduleFromForm();
 
   const body = { phone, username, remark, schedule };
   if (password) body.password = password;
