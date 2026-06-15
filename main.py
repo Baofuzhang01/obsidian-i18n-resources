@@ -1973,21 +1973,14 @@ def strategic_first_attempt(
                 if not token1:
                     logging.error("[strategic] [C] Token fetch failed, skip this config")
                     continue
-                logging.info(f"[strategic] [C] Got token from {_first_token_url}: {token1}, immediately submit")
-                used_handle1 = s.post_getusedtimes_after_token(
-                    times,
-                    roomid,
-                    first_seat,
-                    submit_day,
-                    fid_enc=fid_enc,
+                logging.info(
+                    f"[strategic] [C] Got token from {_first_token_url}: {token1}; "
+                    "first submit skips seat getusedtimes and immediately uses primary seat"
                 )
-                submit_room, submit_seat, submit_page_id, submit_fid, token1, value1 = _maybe_switch_to_backup(
-                    used_handle1,
-                    token1,
-                    value1,
-                    "first submit",
-                    1,
-                )
+                submit_room = roomid
+                submit_seat = first_seat
+                submit_page_id = seat_page_id
+                submit_fid = fid_enc
                 _remember_serial_target(submit_room, submit_seat, submit_page_id, submit_fid)
                 submit_captcha1 = _get_submit_captcha(1)
                 if submit_captcha1 is None:
